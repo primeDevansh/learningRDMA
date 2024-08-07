@@ -78,6 +78,7 @@ udp_lat:
 
 ### 3. Range of TCP latencies wrt varying message sizes
 ![Image](./tcp_lat_vs_msg_size.png)
+
 (Link for Raw Data Values Used)[https://docs.google.com/spreadsheets/d/1c8y4eYEd8_1H9NEOP8XKVsrGGHft05RXx2_fa179Uqo/edit?gid=0#gid=0]
 
 ### 4. RDMA Send/Receive bw, lat | 1 client, 1 server
