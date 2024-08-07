@@ -77,6 +77,11 @@ udp_lat:
 ```
 
 ### 3. Range of TCP latencies wrt varying message sizes
+
+Server: `qperf`
+
+Client: `qperf 192.168.122.72 -oo msg_size:1:256K:*2 -vu tcp_lat`
+
 ![Image](./tcp_lat_vs_msg_size.png)
 
 [Link for Raw Data Values Used](https://docs.google.com/spreadsheets/d/1c8y4eYEd8_1H9NEOP8XKVsrGGHft05RXx2_fa179Uqo/edit?gid=0#gid=0)
