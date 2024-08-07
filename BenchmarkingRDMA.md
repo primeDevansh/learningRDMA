@@ -53,7 +53,7 @@ Server: `qperf` (vm1 in our case)
 
 Client: `qperf 192.168.122.72 tcp_bw tcp_lat` (vm2 in our case)
 
-Result:
+Result: (on vm2)
 ```sh
 tcp_bw:
     bw  =  5.78 GB/sec
@@ -67,7 +67,7 @@ Server: `qperf` (vm1 in our case)
 
 Client: `qperf 192.168.122.72 udp_bw udp_lat` (vm2 in our case)
 
-Result:
+Result: (on vm2)
 ```sh
 udp_bw:
     send_bw  =  846 MB/sec
@@ -76,11 +76,26 @@ udp_lat:
     latency  =  25.8 us
 ```
 
-### 3. 
+### 3. Range of TCP latencies wrt varying message sizes
+![Image](./tcp_lat_vs_msg_size.png)
+(Link for Raw Data Values Used)[https://docs.google.com/spreadsheets/d/1c8y4eYEd8_1H9NEOP8XKVsrGGHft05RXx2_fa179Uqo/edit?gid=0#gid=0]
 
-xychart-beta
-    title "Sales Revenue"
-    x-axis [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
-    y-axis "Revenue (in $)" 4000 --> 11000
-    bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
-    line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+### 4. RDMA Send/Receive bw, lat | 1 client, 1 server
+Server: `qperf` (vm1 in our case)
+
+Client: `qperf 192.168.122.72 rc_bi_bw rc_lat -cm On -cp1 On -i rxe0:19765` (vm2 in our case)
+> I tried several other combinations of options apart from the one mentioned above, but couldn't somehow get the results out. I could see the connection getting established (as both the server and the client reported the same error) but data transfer didn't take place. 
+
+Result (Error): (on vm1)
+```sh
+vm1@vm1:~$ qperf
+failed to modify QP to RTR: Invalid argument
+```
+
+Result (Error): (on vm2)
+```sh
+failed to modify QP to RTR: Invalid argument
+server: failed to modify QP to RTR: Invalid argument
+```
+
+> RTR stands for Ready to Receive and is a state in which a QP enters during its lifetime. More information [here](https://www.rdmamojo.com/2012/05/05/qp-state-machine/)
